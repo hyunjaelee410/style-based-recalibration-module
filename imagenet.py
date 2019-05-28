@@ -22,7 +22,7 @@ from models.resnet import resnet
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 
 # Datasets
-parser.add_argument('-d', '--data', default='/lunit/data/imagenet/ILSVRC2012', type=str)
+parser.add_argument('-d', '--data', default='/data/imagenet/ILSVRC2012', type=str)
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 # Optimization options
