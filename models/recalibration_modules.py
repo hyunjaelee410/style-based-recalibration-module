@@ -18,11 +18,12 @@ class SRMLayer(nn.Module):
         setattr(self.bn.weight, 'srm_param', True)
         setattr(self.bn.bias, 'srm_param', True)
 
-    def _style_pooling(self, x):
+    def _style_pooling(self, x, eps=1e-5):
         N, C, _, _ = x.size()
 
-        channel_mean = x.view(N, C, -1).mean(dim=2).view(N, C, -1)
-        channel_std = x.view(N, C, -1).std(dim=2).view(N, C, -1)
+        channel_mean = x.view(N, C, -1).mean(dim=2, keepdim=True)
+        channel_var = x.view(N, C, -1).var(dim=2, keepdim=True) + eps
+        channel_std = channel_var.sqrt()
 
         t = torch.cat((channel_mean, channel_std), dim=2)
         return t 
